@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">HW_3_Akylbek</string>
+    
+    
+    <string-array name="dropdown_items">
+        <item>Types</item>
+        <item>First</item>
+        <item>Second</item>
+        <item>Third</item>
+    </string-array>
+    
+    
 </resources>

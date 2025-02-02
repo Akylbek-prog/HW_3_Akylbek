@@ -8,11 +8,21 @@
     android:background="@color/black"
     tools:context=".MainActivity">
 
+
     <FrameLayout
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/container"
         android:layout_width="match_parent"
         android:layout_height="0dp">
+
+        <Button
+            android:id="@+id/btn_open_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open Result"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" />
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -193,7 +203,8 @@
                 android:id="@+id/btn_equal"
                 style="@style/Orange.Button"
                 android:text="="
-                android:onClick="onOperationClick"/>
+                android:onClick="onOperationClick"
+                />
 
         </LinearLayout>
 

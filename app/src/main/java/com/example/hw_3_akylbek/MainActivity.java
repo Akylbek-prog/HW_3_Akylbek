@@ -1,7 +1,10 @@
 package com.example.hw_3_akylbek;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,10 +19,13 @@ import com.google.android.material.button.MaterialButton;
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
+    private Button btnOpenResult;
     private Double first, second;
     private Boolean isOperationClick;
     private String currentOperation = "";
     private ActivityMainBinding binding;
+    private ImageView imageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +38,26 @@ public class MainActivity extends AppCompatActivity {
 
         binding.textView.setText("0");
 
+        btnOpenResult = findViewById(R.id.btn_open_result);
+        btnOpenResult.setVisibility(View.GONE);
+
+        findViewById(R.id.btn_open_result).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                startActivity(intent);
+            }
+        });{
+            btnOpenResult.setOnClickListener(v -> {
+                String result = textView.getText().toString();
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                intent.putExtra("result", result);
+                startActivity(intent);
+            });
+
+        }
+
         //EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -44,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNamberClick(View view) {
         String text = ((MaterialButton) view).getText().toString();
+        btnOpenResult.setVisibility(View.GONE);
         if (text.equals("AC")) {
             textView.setText("0");
             first = null;
@@ -70,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
     public void onOperationClick(View view) {
         String text = ((MaterialButton) view).getText().toString();
         if (text.equals("=")) {
+            btnOpenResult.setVisibility(View.VISIBLE);
+
             if (first == null || currentOperation.isEmpty()) return;
 
             second = Double.valueOf(textView.getText().toString());
